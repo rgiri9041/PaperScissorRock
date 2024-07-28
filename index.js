@@ -3,7 +3,6 @@ function getComputerChoice() {
     const randomIndex = Math.floor(Math.random() * choice.length);
     return choice[randomIndex];
 }
-
 function getHumanChoice() {
     let choice = prompt("Enter your choice").toLowerCase();
     while (choice !== 'rock' && choice !== 'paper' && choice !== 'scissor') {
@@ -21,20 +20,17 @@ function playRound(humanChoice, computerChoice) {
         humanChoice === "paper" && computerChoice === "rock" ||
         humanChoice === "scissor" && computerChoice === "paper") {
         return "win"
-
     }
     else {
         ;
         return "loose"
     }
-
 }
 function playGame() {
 
     let humanScore = 0;
     let computerScore = 0;
     const round = 5;
-
     for (let i = 0; i < round; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
@@ -50,8 +46,6 @@ function playGame() {
         else {
             console.log("Its a draw in this round")
         }
-
-
     }
     if (humanScore > computerScore) {
         console.log("Congratulation you win the game.")
