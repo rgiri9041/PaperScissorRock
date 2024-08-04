@@ -30,38 +30,38 @@ function playRound(humanChoice, computerChoice) {
         return 'You loose'
     }
 }
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+// function playGame() {
+//     let humanScore = 0;
+//     let computerScore = 0;
    
-     for (let i = 0; i < 1; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        let result = playRound(humanSelection, computerSelection);
-        if (result === "win") {
-            console.log("Your win this round")
-            humanScore++
-        }
-        else if (result === "loose") {
-            console.log("You loose this round")
-            computerScore++
-        }
-        else {
-            console.log("Its a draw in this round")
-        }
+//      for (let i = 0; i < 1; i++) {
+//         const humanSelection = getHumanChoice();
+//         const computerSelection = getComputerChoice();
+//         let result = playRound(humanSelection, computerSelection);
+//         if (result === "win") {
+//             console.log("Your win this round")
+//             humanScore++
+//         }
+//         else if (result === "loose") {
+//             console.log("You loose this round")
+//             computerScore++
+//         }
+//         else {
+//             console.log("Its a draw in this round")
+//         }
         
-    }
-    if (humanScore > computerScore) {
-        console.log("Congratulation you win the game.")
-    }
-    else if (humanScore < computerScore) {
-        console.log("Sorry! You loose the game. Try again next time.")
+//     }
+//     if (humanScore > computerScore) {
+//         console.log("Congratulation you win the game.")
+//     }
+//     else if (humanScore < computerScore) {
+//         console.log("Sorry! You loose the game. Try again next time.")
 
-    }
-    else {
-        console.log("Draw. Try again")
-    }
-}
+//     }
+//     else {
+//         console.log("Draw. Try again")
+//     }
+// }
 // playGame()
 
 const container = document.querySelector('#container');
@@ -98,6 +98,6 @@ function handleClick(e) {
         document.getElementById('winner').textContent = "Congratulations! You win the game."
     }
     else if(computerScore >= 5){
-        document.getElementById('winner').textContent = "Sorry! You loose the ggame."
+        document.getElementById('winner').textContent = "Sorry! You loose the game."
     }
  }
