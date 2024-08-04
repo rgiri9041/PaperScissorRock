@@ -3,13 +3,13 @@ function getComputerChoice() {
     const randomIndex = Math.floor(Math.random() * choice.length);
     return choice[randomIndex];
 }
-function getHumanChoice() {
-    let choice = prompt("Enter your choice").toLowerCase();
-    while (choice !== 'rock' && choice !== 'paper' && choice !== 'scissor') {
-        choice = prompt("Enter your choice that should be 'rock', 'scissor' or 'paper").toLowerCase();
-    }
-    return choice;
-}
+// function getHumanChoice() {
+//     let choice = prompt("Enter your choice").toLowerCase();
+//     while (choice !== 'rock' && choice !== 'paper' && choice !== 'scissor') {
+//         choice = prompt("Enter your choice that should be 'rock', 'scissor' or 'paper").toLowerCase();
+//     }
+//     return choice;
+// }
 function playRound(humanChoice, computerChoice) {
     console.log(`computer choice is ${computerChoice}, Your choice is ${humanChoice}`)
     if (humanChoice === computerChoice) {
@@ -30,7 +30,7 @@ function playGame() {
 
     let humanScore = 0;
     let computerScore = 0;
-    const round = 5;
+    const round = 1;
     for (let i = 0; i < round; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
@@ -46,6 +46,7 @@ function playGame() {
         else {
             console.log("Its a draw in this round")
         }
+        
     }
     if (humanScore > computerScore) {
         console.log("Congratulation you win the game.")
@@ -58,4 +59,29 @@ function playGame() {
         console.log("Draw. Try again")
     }
 }
-playGame()
+// playGame()
+
+const container = document.querySelector('#container');
+const button = document.createElement('button');
+button.textContent = "Paper";
+button.classList.add('btn');
+container.appendChild(button);
+button.onclick = handleClick;
+const button1 = document.createElement('button');
+button1.textContent = "Scissor";
+button1.classList.add('btn');
+container.appendChild(button1);
+button1.onclick = handleClick
+
+const button2 = document.createElement('button');
+button2.textContent = "Rock";
+button2.classList.add('btn');
+container.appendChild(button2);
+button2.onclick = handleClick
+
+function handleClick(e) {
+    const playerSelection = e.target.textContent.toLowerCase();
+    const computerSelection = getComputerChoice();
+    const result = playRound(playerSelection, computerSelection);
+    document.getElementById('result').textContent = result;
+ }
