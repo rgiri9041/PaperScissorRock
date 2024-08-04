@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const choice = ["rock", "scissor", "paper"]
     const randomIndex = Math.floor(Math.random() * choice.length);
@@ -19,19 +22,19 @@ function playRound(humanChoice, computerChoice) {
     else if (humanChoice === "rock" && computerChoice === "scissor" ||
         humanChoice === "paper" && computerChoice === "rock" ||
         humanChoice === "scissor" && computerChoice === "paper") {
-        return "win"
+        humanScore++;
+        return `You Win `
     }
     else {
-        ;
-        return "loose"
+        computerScore++;
+        return 'You loose'
     }
 }
 function playGame() {
-
     let humanScore = 0;
     let computerScore = 0;
-    const round = 1;
-    for (let i = 0; i < round; i++) {
+   
+     for (let i = 0; i < 1; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
         let result = playRound(humanSelection, computerSelection);
@@ -80,8 +83,21 @@ container.appendChild(button2);
 button2.onclick = handleClick
 
 function handleClick(e) {
+    if(humanScore >= 5 || computerScore >= 5){
+        return;
+    }
     const playerSelection = e.target.textContent.toLowerCase();
     const computerSelection = getComputerChoice();
     const result = playRound(playerSelection, computerSelection);
     document.getElementById('result').textContent = result;
+    document.getElementById('humanScore').textContent = humanScore;
+    document.getElementById('computerScore').textContent = computerScore;
+    console.log({humanScore, computerScore})
+
+    if(humanScore >=5){
+        document.getElementById('winner').textContent = "Congratulations! You win the game."
+    }
+    else if(computerScore >= 5){
+        document.getElementById('winner').textContent = "Sorry! You loose the ggame."
+    }
  }
