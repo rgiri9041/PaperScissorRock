@@ -1,103 +1,71 @@
-let humanScore = 0;
+const choices = ["paper", "scissor", "rock"];
+let playerScore = 0;
 let computerScore = 0;
+let roundsPlayed = 0; // Counts how many rounds have been played
+const maxRounds = 5;  // We want to play 5 rounds
 
 function getComputerChoice() {
-    const choice = ["rock", "scissor", "paper"]
-    const randomIndex = Math.floor(Math.random() * choice.length);
-    return choice[randomIndex];
+    // Picks a random choice for the computer (paper, scissor, or rock)
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
 }
-// function getHumanChoice() {
-//     let choice = prompt("Enter your choice").toLowerCase();
-//     while (choice !== 'rock' && choice !== 'paper' && choice !== 'scissor') {
-//         choice = prompt("Enter your choice that should be 'rock', 'scissor' or 'paper").toLowerCase();
-//     }
-//     return choice;
-// }
-function playRound(humanChoice, computerChoice) {
-    console.log(`computer choice is ${computerChoice}, Your choice is ${humanChoice}`)
-    if (humanChoice === computerChoice) {
 
-        return "draw"
-    }
-    else if (humanChoice === "rock" && computerChoice === "scissor" ||
-        humanChoice === "paper" && computerChoice === "rock" ||
-        humanChoice === "scissor" && computerChoice === "paper") {
-        humanScore++;
-        return `You Win `
-    }
-    else {
-        computerScore++;
-        return 'You loose'
+function playRound(playerSelection, computerSelection) {
+    // Compares player's choice and computer's choice to see who wins
+    if (playerSelection === computerSelection) {
+        return "It's a tie!";
+    } else if (
+        (playerSelection === "rock" && computerSelection === "scissor") ||
+        (playerSelection === "scissor" && computerSelection === "paper") ||
+        (playerSelection === "paper" && computerSelection === "rock")
+    ) {
+        playerScore++; // Player wins, increase player's score
+        return `You Win! ${playerSelection} beats ${computerSelection}`;
+    } else {
+        computerScore++; // Computer wins, increase computer's score
+        return `You Lose! ${computerSelection} beats ${playerSelection}`;
     }
 }
-// function playGame() {
-//     let humanScore = 0;
-//     let computerScore = 0;
-   
-//      for (let i = 0; i < 1; i++) {
-//         const humanSelection = getHumanChoice();
-//         const computerSelection = getComputerChoice();
-//         let result = playRound(humanSelection, computerSelection);
-//         if (result === "win") {
-//             console.log("Your win this round")
-//             humanScore++
-//         }
-//         else if (result === "loose") {
-//             console.log("You loose this round")
-//             computerScore++
-//         }
-//         else {
-//             console.log("Its a draw in this round")
-//         }
-        
-//     }
-//     if (humanScore > computerScore) {
-//         console.log("Congratulation you win the game.")
-//     }
-//     else if (humanScore < computerScore) {
-//         console.log("Sorry! You loose the game. Try again next time.")
 
-//     }
-//     else {
-//         console.log("Draw. Try again")
-//     }
-// }
-// playGame()
+function updateScore() {
+    // Updates the score display on the page
+    document.getElementById("score").textContent = `Player: ${playerScore}  <><><><><><><><><> Computer: ${computerScore}`;
+}
 
-const container = document.querySelector('#container');
-const button = document.createElement('button');
-button.textContent = "Paper";
-button.classList.add('btn');
-container.appendChild(button);
-button.onclick = handleClick;
-const button1 = document.createElement('button');
-button1.textContent = "Scissor";
-button1.classList.add('btn');
-container.appendChild(button1);
-button1.onclick = handleClick
+function checkWinner() {
+    // If 5 rounds have been played, decide who the overall winner is
+    if (roundsPlayed === maxRounds) {
+        let finalResult = "";
+        if (playerScore > computerScore) {
+            finalResult = "Congratulations! You won the best of five!";
+        } else if (playerScore < computerScore) {
+            finalResult = "The computer won the best of five. Better luck next time!";
+        } else {
+            finalResult = "It's a tie! No one wins the best of five.";
+        }
 
-const button2 = document.createElement('button');
-button2.textContent = "Rock";
-button2.classList.add('btn');
-container.appendChild(button2);
-button2.onclick = handleClick
+        document.getElementById("result").textContent = finalResult;
+        // Stop the game by removing the ability to click the buttons
+        document.getElementById("paper").onclick = null;
+        document.getElementById("scissor").onclick = null;
+        document.getElementById("rock").onclick = null;
+    }
+}
 
 function handleClick(e) {
-    if(humanScore >= 5 || computerScore >= 5){
-        return;
+    // This function runs when you click on an image
+    if (roundsPlayed < maxRounds) { // Only run if less than 5 rounds have been played
+        const playerSelection = e.target.id; // Get the player's choice
+        const computerSelection = getComputerChoice(); // Get the computer's choice
+        const result = playRound(playerSelection, computerSelection); // See who wins this round
+        document.getElementById("result").textContent = result; // Show the result of this round
+        updateScore(); // Update the score on the page
+        roundsPlayed++; // Increase the round counter
+        checkWinner(); // Check if we need to end the game
     }
-    const playerSelection = e.target.textContent.toLowerCase();
-    const computerSelection = getComputerChoice();
-    const result = playRound(playerSelection, computerSelection);
-    document.getElementById('result').textContent = result;
-    document.getElementById('humanScore').textContent = humanScore;
-    document.getElementById('computerScore').textContent = computerScore;
-    console.log({humanScore, computerScore})
+}
 
-    if(humanScore >=5){
-        document.getElementById('winner').textContent = "Congratulations! You win the game."
-    }
-    else if(computerScore >= 5){
-        document.getElementById('winner').textContent = "Sorry! You loose the game."
-    }
- }
+// Set up the game so clicking the images will run the handleClick function
+document.getElementById("paper").onclick = handleClick;
+document.getElementById("scissor").onclick = handleClick;
+document.getElementById("rock").onclick = handleClick;
