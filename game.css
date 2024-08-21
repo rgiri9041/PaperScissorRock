@@ -9,14 +9,14 @@ body{
     text-align: center;
     margin-top: 100px;
     height: 100vh;
-    width: 100vh;
+    width: 100vw;
 }
 .container{
     display: flex; 
+    text-align: center;
 }
 .score{
     display: flex;
-    /* flex-direction: column; */
     padding-top: 20px;
 }
 
@@ -35,12 +35,21 @@ body{
     justify-content: center;
     margin-bottom: 40px;
 }
+#score1{
+    color: white;
+    margin-left:170px ;
+}
 #score{
     margin-right: 20px;
+    color: white;
+}
+b{
+    color: white;
 }
  
 #result{
     margin-top: 20px;
+    color: white;
 }
 .image{
     gap: 10px;
